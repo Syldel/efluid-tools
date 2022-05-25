@@ -1,0 +1,16 @@
+{
+  "name": "efluid-tools",
+  "description": "Efluid Tools",
+  "private": "true",
+  "type": "module",
+  "scripts": {
+    "start": "npm run update",
+    "update": "node update-protocol.js"
+  },
+  "dependencies": {
+    "btoa": "^1.2.1",
+    "fs": "0.0.1-security",
+    "node-fetch": "^3.2.4",
+    "yauzl": "^2.10.0"
+  }
+}
