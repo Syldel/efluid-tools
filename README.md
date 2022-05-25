@@ -19,31 +19,23 @@ Set your username and password
 ```
 EFLUID_USERNAME = ""
 EFLUID_PASSWORD = ""
-RELATIVE_PATH = "../efluid/mapefluid/frontend/"
+RELATIVE_PATH = ""
 POM_XML_PATH = "pom.xml"
 TMP_JAR_PATH = "target/protocol.jar"
 OPEN_API_PATH = "target/tmp/protocol/META-INF/openapi.json"
 ARTIFACT_URL = "https://eartifact.efluid.uem.lan/artifactory/libs-snapshot/com/efluid/efluid-mapefluid-protocol"
 ```
 
-### 4. Symlink
+### 3. Symlink
 
 ```
 npm link
 ```
 
-Now you can directly use "etools" command from the other projects
+### 4. How to use
 
-(If you work on the "bin" system, maybe you should unlink and link again)
-
-### 3. Using : Update the protocol
+From everywhere, you can do :
 
 ```
-npm start
-```
-
-Or
-
-```
-npm run update
+etools
 ```
