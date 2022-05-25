@@ -23,7 +23,7 @@ RELATIVE_PATH = ""
 POM_XML_PATH = "pom.xml"
 TMP_JAR_PATH = "target/protocol.jar"
 OPEN_API_PATH = "target/tmp/protocol/META-INF/openapi.json"
-ARTIFACT_URL = "https://eartifact.efluid.uem.lan/artifactory/libs-snapshot/com/efluid/efluid-mapefluid-protocol"
+ARTIFACT_URL = "https://******/******/******-protocol"
 ```
 
 ### 3. Symlink
