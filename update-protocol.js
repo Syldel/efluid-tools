@@ -1,15 +1,17 @@
+import 'dotenv/config'
+
 import btoa from 'btoa'
 import fetch from 'node-fetch'
 import fs from 'fs'
 import yauzl from 'yauzl'
 
-const username = ''
-const password = ''
-const relativePath = '../efluid/mapefluid/frontend/'
-const pomXmlPath = `${relativePath}pom.xml`
-const tmpJarPath = `${relativePath}target/protocol.jar`
-const openApiPath = `${relativePath}target/tmp/protocol/META-INF/openapi.json`
-const artifactUrl = 'https://eartifact.efluid.uem.lan/artifactory/libs-snapshot/com/efluid/efluid-mapefluid-protocol'
+let username = ''
+let password = ''
+let relativePath = '../efluid/mapefluid/frontend/'
+let pomXmlPath = `${relativePath}pom.xml`
+let tmpJarPath = `${relativePath}target/protocol.jar`
+let openApiPath = `${relativePath}target/tmp/protocol/META-INF/openapi.json`
+let artifactUrl = 'https://eartifact.efluid.uem.lan/artifactory/libs-snapshot/com/efluid/efluid-mapefluid-protocol'
 
 const httpsFetch = async (url) => {
   console.log(`fetch ${url}`)
@@ -141,7 +143,26 @@ const downloadAndUnzipJar = async (url) => {
   console.log(`unzip ${tmpJarPath} to ${openApiPath} OK`)
 }
 
+const getEnv = () => {
+  if (
+    !process.env.EFLUID_USERNAME ||
+    !process.env.EFLUID_PASSWORD
+  ) {
+    console.log('Define the .env file!')
+    return
+  }
+
+  username = process.env.EFLUID_USERNAME ? process.env.EFLUID_USERNAME : username
+  password = process.env.EFLUID_PASSWORD ? process.env.EFLUID_PASSWORD : password
+  relativePath = process.env.RELATIVE_PATH ? process.env.RELATIVE_PATH : relativePath
+  pomXmlPath = process.env.POM_XML_PATH ? `${relativePath}${process.env.POM_XML_PATH}` : pomXmlPath
+  tmpJarPath = process.env.TMP_JAR_PATH ? `${relativePath}${process.env.TMP_JAR_PATH}` : tmpJarPath
+  openApiPath = process.env.OPEN_API_PATH ? `${relativePath}${process.env.OPEN_API_PATH}` : openApiPath
+  artifactUrl = process.env.ARTIFACT_URL ? process.env.ARTIFACT_URL : artifactUrl
+}
+
 const init = async () => {
+  getEnv()
   if (username?.length === 0 || password?.length === 0) {
     console.log('Define login!')
     return
@@ -150,6 +171,12 @@ const init = async () => {
   const lastVersionUrl = await lookForJarLink()
   if (lastVersionUrl) {
     await downloadAndUnzipJar(lastVersionUrl)
+    console.log(
+      '\x1b[32m' +
+      'openapi.json file successfully updated!' +
+      '\x1b[0m' +
+      '\n'
+    )
   }
 }
 

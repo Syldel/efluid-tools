@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "btoa": "^1.2.1",
+    "dotenv": "^16.0.1",
     "fs": "0.0.1-security",
     "node-fetch": "^3.2.4",
     "yauzl": "^2.10.0"
