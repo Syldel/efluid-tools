@@ -12,6 +12,10 @@
     "dotenv": "^16.0.1",
     "fs": "0.0.1-security",
     "node-fetch": "^3.2.4",
+    "path": "^0.12.7",
     "yauzl": "^2.10.0"
+  },
+  "bin": {
+    "etools": "bin/etools.js"
   }
 }

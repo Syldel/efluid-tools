@@ -1,13 +1,20 @@
-import 'dotenv/config'
-
 import btoa from 'btoa'
+import { dirname } from 'path'
+import dotenv from 'dotenv'
 import fetch from 'node-fetch'
+import { fileURLToPath } from 'url'
 import fs from 'fs'
+import path from 'path'
 import yauzl from 'yauzl'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
+
+dotenv.config({path: path.join(__dirname, '.env')})
 
 let username = ''
 let password = ''
-let relativePath = '../efluid/mapefluid/frontend/'
+let relativePath = ''
 let pomXmlPath = `${relativePath}pom.xml`
 let tmpJarPath = `${relativePath}target/protocol.jar`
 let openApiPath = `${relativePath}target/tmp/protocol/META-INF/openapi.json`
