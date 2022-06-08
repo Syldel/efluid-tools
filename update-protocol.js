@@ -112,6 +112,12 @@ const getArtifactPage = async () => {
 const extractVersions = (pageData, pomXmlVersion) => {
   const regexp = />[ ]*([^ </]*)[/ ]*<[a\s/>]*([\w-]* [0-9:]*)/g
   const version = pomXmlVersion.replace('-SNAPSHOT', '')
+  console.log(
+    'Version: ' +
+    '\x1b[33m' +
+    version +
+    '\x1b[0m'
+  )
   const goodVersions = []
   let match
   do {
@@ -121,6 +127,12 @@ const extractVersions = (pageData, pomXmlVersion) => {
     }
   } while (match)
   goodVersions.sort((obj1, obj2) => obj2.date.getTime() - obj1.date.getTime())
+  console.log(
+    'Dernière version trouvée: ' +
+    '\x1b[33m' +
+    goodVersions[0].date.toLocaleString() +
+    '\x1b[0m'
+  )
   return goodVersions[0].version
 }
 
