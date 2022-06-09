@@ -20,6 +20,39 @@ let tmpJarPath = `${relativePath}target/protocol.jar`
 let openApiPath = `${relativePath}target/tmp/protocol/META-INF/openapi.json`
 let artifactUrl = 'https://eartifact.efluid.uem.lan/artifactory/libs-snapshot/com/efluid/efluid-mapefluid-protocol'
 
+const coloredText = (color, text) => {
+  let prefix = ''
+  switch (color) {
+    case 'FgRed':
+      prefix = '\x1b[31m'
+      break;
+    case 'FgGreen':
+      prefix = '\x1b[32m'
+      break;
+    case 'FgYellow':
+      prefix = '\x1b[33m'
+      break;
+    case 'FgBlue':
+      prefix = '\x1b[34m'
+      break;
+    case 'FgMagenta':
+      prefix = '\x1b[35m'
+      break;
+    case 'FgCyan':
+      prefix = '\x1b[36m'
+      break;
+    default:
+      // 'FgWhite'
+      prefix = '\x1b[37m'
+  }
+  const suffix = '\x1b[0m'
+  return `${prefix}${text}${suffix}`
+}
+
+const coloredLog = (color, text) => {
+  console.log(coloredText(color, text))
+}
+
 const httpsFetch = async (url) => {
   console.log(`fetch ${url}`)
   process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0
@@ -40,7 +73,7 @@ const httpsFetch = async (url) => {
     return response
   } catch (error) {
     process.env.NODE_TLS_REJECT_UNAUTHORIZED = 1
-    console.log('fetch error', error)
+    coloredLog('FgRed', 'fetch error: ' + error)
   }
 }
 
@@ -103,7 +136,7 @@ const readPomXmlFile = async () => {
 const getArtifactPage = async () => {
   const response = await httpsFetch(artifactUrl)
   if (!response) {
-    console.log('artefact page not found!')
+    coloredLog('FgRed', 'artefact page not found!')
     return null
   }
   return await response.text()
@@ -114,9 +147,7 @@ const extractVersions = (pageData, pomXmlVersion) => {
   const version = pomXmlVersion.replace('-SNAPSHOT', '')
   console.log(
     'Version: ' +
-    '\x1b[33m' +
-    version +
-    '\x1b[0m'
+    coloredText('FgYellow', version)
   )
   const goodVersions = []
   let match
@@ -128,10 +159,8 @@ const extractVersions = (pageData, pomXmlVersion) => {
   } while (match)
   goodVersions.sort((obj1, obj2) => obj2.date.getTime() - obj1.date.getTime())
   console.log(
-    'Dernière version trouvée: ' +
-    '\x1b[33m' +
-    goodVersions[0].date.toLocaleString() +
-    '\x1b[0m'
+    'Version la plus récente: ' +
+    coloredText('FgYellow', goodVersions[0].date.toLocaleString())
   )
   return goodVersions[0].version
 }
@@ -156,10 +185,10 @@ const downloadAndUnzipJar = async (url) => {
   const response = await httpsFetch(url)
 
   await recordFile(response, tmpJarPath)
-  console.log(`download to ${tmpJarPath} OK`)
+  coloredLog('FgGreen', `download to ${tmpJarPath} OK`)
 
   await unzip(tmpJarPath, openApiPath)
-  console.log(`unzip ${tmpJarPath} to ${openApiPath} OK`)
+  coloredLog('FgGreen', `unzip ${tmpJarPath} to ${openApiPath} OK`)
 }
 
 const getEnv = () => {
@@ -190,12 +219,7 @@ const init = async () => {
   const lastVersionUrl = await lookForJarLink()
   if (lastVersionUrl) {
     await downloadAndUnzipJar(lastVersionUrl)
-    console.log(
-      '\x1b[32m' +
-      'openapi.json file successfully updated!' +
-      '\x1b[0m' +
-      '\n'
-    )
+    coloredLog('FgGreen', 'openapi.json file successfully updated!\n')
   }
 }
 
