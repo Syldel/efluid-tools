@@ -39,3 +39,7 @@ From everywhere, you can do :
 ```
 etools
 ```
+
+### 5. VSCode settings
+
+Look "settings.json" file example

@@ -1,0 +1,45 @@
+{
+  "terminal.external.osxExec": "iTerm.app",
+  "terminal.integrated.shell.osx": "/bin/zsh",
+  "terminal.integrated.defaultProfile.osx": "zsh",
+  "terminal.integrated.fontFamily": "Inconsolata for Powerline",
+  "terminal.integrated.fontSize": 14,
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "diffEditor.ignoreTrimWhitespace": true,
+  "editor.formatOnSave": true,
+  "filewatcher": {
+    "autoClearConsole": false,
+    "commands": [
+      {
+        "match": "/archi/javascript/projets/((?!jest).)*\\.js",
+        "isAsync": false,
+        "cmd": "******************/efluid-tools/copy.sh ${file}",
+        "event": "onFileChange"
+      },
+      {
+        "match": "/archi/javascript/projets/[^ ]+\\.jest\\.js",
+        "isAsync": false,
+        "cmd": "cd ${workspaceRoot} && node -v && npx jest ${file} --notify --coverage --config=${workspaceRoot}/packages/configuration/jest/jest.config.cjs; echo '**' > ${workspaceRoot}/coverage/.gitignore; open ${workspaceRoot}/coverage/lcov-report/index.html",
+        "event": "onFileChange"
+      },
+      {
+        "match": "/efluid/mapefluid/frontend/src/[^ ]+\\.jest\\.js",
+        "isAsync": false,
+        "cmd": "cd ${workspaceRoot} && node -v && npx jest ${file} --notify --coverage --config=${workspaceRoot}/node_modules/@efluid/configuration/jest/jest.config.cjs; echo '**' > ${workspaceRoot}/coverage/.gitignore; open ${workspaceRoot}/coverage/lcov-report/index.html",
+        "event": "onFileChange"
+      },
+      {
+        "match": "/archi/javascript/projets/[^ ]+\\.js",
+        "isAsync": false,
+        "cmd": "cd ${workspaceRoot} && node -v && npx eslint ${file} --fix --config ${workspaceRoot}/packages/configuration/eslint/eslint.cjs",
+        "event": "onFileChange"
+      },
+      {
+        "match": "/efluid/mapefluid/frontend/src/[^ ]+\\.js",
+        "isAsync": false,
+        "cmd": "cd ${workspaceRoot} && node -v && npx eslint ${file} --fix --config ${workspaceRoot}/node_modules/@efluid/configuration/eslint/eslint.cjs",
+        "event": "onFileChange"
+      }
+    ]
+  }
+}
