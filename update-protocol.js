@@ -172,7 +172,7 @@ const lookForJarLink = async () => {
   if (pomXmlVersion) {
     const artifactPageData = await getArtifactPage()
     if (artifactPageData) {
-      if (JSON.parse(artifactPageData).errors) {
+      if (artifactPageData.includes('errors')) {
         console.log(artifactPageData)
         return
       }
