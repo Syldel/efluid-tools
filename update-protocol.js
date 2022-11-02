@@ -172,6 +172,10 @@ const lookForJarLink = async () => {
   if (pomXmlVersion) {
     const artifactPageData = await getArtifactPage()
     if (artifactPageData) {
+      if (JSON.parse(artifactPageData).errors) {
+        console.log(artifactPageData)
+        return
+      }
       const lastVersion = extractVersions(artifactPageData, pomXmlVersion)
       if (lastVersion) {
         return `${artifactUrl}/${lastVersion}/efluid-mapefluid-protocol-${lastVersion}.jar`
