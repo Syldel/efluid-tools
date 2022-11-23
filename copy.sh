@@ -1,14 +1,6 @@
 #!/bin/bash
 
-root_path="/Users/sylvain/workspace/*********"
-
-# COMPOSANTS
-archi_composants_path="/archi/javascript/projets/*********"
-mapefluid_composants_path="/*********/*********/frontend/node_modules/*********"
-
-# CORE
-archi_core_path="/archi/javascript/projets/*********"
-mapefluid_core_path="/*********/*********/frontend/node_modules/*********"
+source $(dirname $0)/copy-paths.sh
 
 param1=$1
 
@@ -22,12 +14,21 @@ case $param1 in
     cp $param1 $final_path
     ;;
 
-  *"${archi_core_path}"*)
-    archi_full_path="${root_path}${archi_core_path}"
-    mapefluid_full_path="${root_path}${mapefluid_core_path}"
+  *"${archi_fiche_path}"*)
+    archi_full_path="${root_path}${archi_fiche_path}"
+    mapefluid_full_path="${root_path}${mapefluid_fiche_path}"
     relative_path="${param1/$archi_full_path}"
     final_path="${mapefluid_full_path}${relative_path}"
-    echo "Pattern CORE reconnu. On copie! ✅"
+    echo "Pattern FICHE reconnu. On copie! ✅"
+    cp $param1 $final_path
+    ;;
+
+  *"${archi_outil_path}"*)
+    archi_full_path="${root_path}${archi_outil_path}"
+    mapefluid_full_path="${root_path}${mapefluid_outil_path}"
+    relative_path="${param1/$archi_full_path}"
+    final_path="${mapefluid_full_path}${relative_path}"
+    echo "Pattern OUTIL reconnu. On copie! ✅"
     cp $param1 $final_path
     ;;
 
