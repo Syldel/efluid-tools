@@ -32,6 +32,15 @@ case $param1 in
     cp $param1 $final_path
     ;;
 
+  *"${archi_page_path}"*)
+    archi_full_path="${root_path}${archi_page_path}"
+    mapefluid_full_path="${root_path}${mapefluid_page_path}"
+    relative_path="${param1/$archi_full_path}"
+    final_path="${mapefluid_full_path}${relative_path}"
+    echo "Pattern PAGE reconnu. On copie! ✅"
+    cp $param1 $final_path
+    ;;
+
   *)
     echo "Pattern non reconnu. On ne copie pas! ❌"
     ;;

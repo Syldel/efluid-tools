@@ -69,4 +69,9 @@ mapefluid_fiche_path="/efluid/mapefluid/frontend/node_modules/@efluid/fiche/src/
 archi_outil_path="/archi/javascript/projets/packages/core/outil/src/main/js"
 mapefluid_outil_path="/efluid/mapefluid/frontend/node_modules/@efluid/outil/src/main/js"
 
+# PAGE
+
+archi_page_path="/archi/javascript/projets/packages/core/page/src/main/js"
+mapefluid_page_path="/efluid/mapefluid/frontend/node_modules/@efluid/page/src/main/js"
+
 ```
